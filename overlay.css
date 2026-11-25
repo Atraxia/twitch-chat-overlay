@@ -1,0 +1,341 @@
+#tct-overlay {
+  position: fixed;
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  color: #fff;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  pointer-events: none; /* les clics passent à la vidéo */
+}
+
+/* Mode déplacement : on peut glisser et redimensionner */
+#tct-overlay.tct-move {
+  pointer-events: auto;
+  cursor: move;
+  resize: both;
+  outline: 1px dashed rgba(255, 255, 255, 0.6);
+}
+
+#tct-overlay .tct-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  background: none;
+  scrollbar-width: none;
+}
+
+#tct-overlay .tct-list::-webkit-scrollbar {
+  display: none;
+}
+
+#tct-overlay .chat-line__message-container,
+#tct-overlay .chat-line__message--highlighted,
+#tct-overlay .chat-line__no-background {
+  background: transparent !important;
+}
+
+#tct-overlay .chat-line__message,
+#tct-overlay .chat-line__username,
+#tct-overlay .chat-author__display-name,
+#tct-overlay .text-fragment {
+  text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000;
+}
+
+#tct-overlay .chat-line__message {
+  padding: 2px 0;
+  font-size: var(--tct-font-size, 14px);
+  line-height: 1.3;
+}
+
+/* Mode fade : les messages s'effacent après un délai */
+#tct-overlay .tct-list > * {
+  transition: opacity 1s ease;
+}
+
+#tct-overlay .tct-list > .tct-fade-out {
+  opacity: 0;
+}
+
+/* Texte en gras */
+#tct-overlay.tct-bold .chat-line__message {
+  font-weight: 700;
+}
+
+/* Bouton dans la barre de contrôle du lecteur */
+.tct-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.tct-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tct-toggle-btn.tct-off {
+  opacity: 0.45;
+}
+
+/* Panneau de réglages dans le lecteur, style menu Twitch */
+#tct-panel,
+#tct-panel * {
+  box-sizing: border-box;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+#tct-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 60px;
+  z-index: 2147483647;
+  width: 300px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 6px 0;
+  border-radius: 6px;
+  background: #18181b;
+  color: #efeff1;
+  font-size: 13px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 24px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  cursor: default;
+}
+
+#tct-panel .tct-head {
+  padding: 0 0 4px;
+}
+
+#tct-panel .tct-close {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  background: none;
+  color: #efeff1;
+  font: inherit;
+  cursor: pointer;
+}
+
+#tct-panel .tct-close:hover,
+#tct-panel .tct-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#tct-panel .tct-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  background: none;
+  color: #efeff1;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+#tct-panel .tct-plain {
+  justify-content: flex-start;
+}
+
+#tct-panel .tct-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #efeff1;
+}
+
+#tct-panel .tct-value {
+  color: #efeff1;
+}
+
+#tct-panel .tct-check {
+  display: flex;
+  color: #efeff1;
+}
+
+#tct-panel .tct-divider {
+  height: 1px;
+  margin: 6px 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#tct-panel .tct-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+#tct-panel .tct-switch input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+#tct-panel .tct-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #53535f;
+  pointer-events: none;
+  transition: background 0.15s;
+}
+
+#tct-panel .tct-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+
+#tct-panel .tct-switch input:checked + .tct-track {
+  background: #9147ff;
+}
+
+#tct-panel .tct-switch input:checked + .tct-track::after {
+  transform: translateX(16px);
+}
+
+/* Entrée « Chat overlay » dans le menu paramètres de Twitch */
+.tct-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: #efeff1;
+  font-family: "Segoe UI", Inter, Arial, sans-serif;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tct-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tct-menu-item svg {
+  color: #adadb8;
+  flex-shrink: 0;
+}
+
+/* Filtres de messages */
+#tct-overlay.tct-hide-events .tct-kind-event,
+#tct-overlay.tct-hide-bots .tct-kind-bot,
+#tct-overlay.tct-hide-commands .tct-kind-command {
+  display: none !important;
+}
+
+#tct-panel .tct-section {
+  padding: 8px 16px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #adadb8;
+}
+
+/* Messages surlignés */
+#tct-overlay .tct-highlight {
+  background: rgba(145, 71, 255, 0.28);
+  box-shadow: inset 3px 0 0 #9147ff;
+}
+
+/* Liste des utilisateurs surlignés dans le panneau */
+#tct-panel .tct-add {
+  display: flex;
+  gap: 6px;
+  padding: 4px 16px 10px;
+}
+
+#tct-panel .tct-add input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid #3a3a3d;
+  border-radius: 4px;
+  background: #0e0e10;
+  color: #efeff1;
+  font: inherit;
+}
+
+#tct-panel .tct-add input:focus {
+  outline: none;
+  border-color: #9147ff;
+}
+
+#tct-panel .tct-add-btn {
+  padding: 0 12px;
+  border: none;
+  border-radius: 4px;
+  background: #9147ff;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+#tct-panel .tct-empty {
+  padding: 4px 16px 10px;
+  font-size: 12px;
+  color: #adadb8;
+}
+
+#tct-panel .tct-user-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 16px;
+}
+
+#tct-panel .tct-user-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#tct-panel .tct-remove {
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: #adadb8;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#tct-panel .tct-remove:hover {
+  color: #fff;
+}

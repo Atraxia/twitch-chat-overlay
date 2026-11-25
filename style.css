@@ -1,0 +1,32 @@
+.chat-room,
+.chat-shell,
+.right-column,
+.chat-room__content,
+.chat-scrollable-area__message-container,
+[data-a-target="chat-scroller"],
+.stream-chat-header,
+.stream-chat-header-container,
+.chat-input,
+.chat-input__buttons-container,
+[data-test-selector="chat-input"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.chat-input__textarea,
+[data-a-target="chat-input"] {
+  background: rgba(0, 0, 0, 0.35) !important;
+  background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+.chat-line__message,
+.chat-line__username,
+.chat-author__display-name {
+  text-shadow: 0 0 3px #000, 0 0 3px #000;
+}
+
+.chat-line__message-container,
+.chat-line__message--highlighted,
+.chat-line__no-background {
+  background: transparent !important;
+}

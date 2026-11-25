@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      width: 280px;
+      margin: 0;
+      padding: 14px;
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      font-size: 13px;
+      background: #18181b;
+      color: #efeff1;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    header .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #9147ff;
+    }
+    header h1 {
+      font-size: 15px;
+      margin: 0;
+      font-weight: 600;
+    }
+    section {
+      background: #1f1f23;
+      border-radius: 8px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #adadb8;
+      margin: 10px 0 6px;
+      font-weight: 600;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 36px;
+      cursor: pointer;
+    }
+    .hint {
+      font-size: 11px;
+      color: #adadb8;
+      padding: 0 0 10px;
+      line-height: 1.4;
+    }
+
+    /* Interrupteur */
+    .switch {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    .switch .track {
+      position: absolute;
+      inset: 0;
+      background: #3a3a3d;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .switch .track::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s;
+    }
+    .switch input:checked + .track {
+      background: #9147ff;
+    }
+    .switch input:checked + .track::after {
+      transform: translateX(16px);
+    }
+
+    /* Curseur */
+    .slider {
+      padding: 6px 0 12px;
+    }
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .slider-head output {
+      color: #bf94ff;
+      font-variant-numeric: tabular-nums;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: #9147ff;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 4px;
+      padding: 8px;
+      border: 1px solid #3a3a3d;
+      border-radius: 6px;
+      background: transparent;
+      color: #efeff1;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    button:hover {
+      background: #26262c;
+    }
+    @media (min-width: 500px) {
+      body {
+        width: 420px;
+        margin: 40px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="dot"></span>
+    <h1>Chat overlay</h1>
+  </header>
+
+  <section>
+    <h2>Affichage</h2>
+    <label class="row">
+      <span>Afficher le chat</span>
+      <span class="switch"><input type="checkbox" id="visible"><span class="track"></span></span>
+    </label>
+    <label class="row">
+      <span>Texte en gras</span>
+      <span class="switch"><input type="checkbox" id="bold"><span class="track"></span></span>
+    </label>
+    <div class="slider">
+      <div class="slider-head">
+        <span>Taille du texte</span>
+        <output id="fontSizeValue"></output>
+      </div>
+      <input type="range" id="fontSize" min="10" max="30" step="1">
+    </div>
+  </section>
+
+  <section>
+    <h2>Position</h2>
+    <label class="row">
+      <span>Mode déplacement</span>
+      <span class="switch"><input type="checkbox" id="moveMode"><span class="track"></span></span>
+    </label>
+    <div class="hint">Activez-le, glissez le chat sur le stream et redimensionnez-le par le coin en bas à droite, puis désactivez-le.</div>
+  </section>
+
+  <section>
+    <h2>Fade</h2>
+    <label class="row">
+      <span>Mode fade</span>
+      <span class="switch"><input type="checkbox" id="fadeMode"><span class="track"></span></span>
+    </label>
+    <div class="slider">
+      <div class="slider-head">
+        <span>Disparition après</span>
+        <output id="fadeDelayValue"></output>
+      </div>
+      <input type="range" id="fadeDelay" min="3" max="60" step="1">
+    </div>
+  </section>
+
+  <button id="reset">Réinitialiser</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

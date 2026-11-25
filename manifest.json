@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Twitch Chat Overlay",
+  "version": "1.21",
+  "description": "Affiche le chat Twitch en overlay transparent sur le stream, y compris en plein écran",
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Réglages du chat overlay"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.twitch.tv/*"
+      ],
+      "css": [
+        "overlay.css"
+      ],
+      "js": [
+        "chat-overlay.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
